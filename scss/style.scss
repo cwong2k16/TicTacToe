@@ -1,0 +1,21 @@
+$bgc: #ADD8E6; // bg color
+$gc: white; // general color of text and all
+$width: 200px; // the length/width of each cell
+
+body{
+  background-color: $bgc;
+  color: $gc;
+  text-align: center;
+}
+table{
+    border-style:hidden;
+  &.center{
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+td{
+    border: 15px solid $gc;
+    width: $width; 
+    height: $width;
+}

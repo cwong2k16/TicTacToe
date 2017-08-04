@@ -1,0 +1,17 @@
+body {
+  background-color: #ADD8E6;
+  color: white;
+  text-align: center; }
+
+table {
+  border-style: hidden; }
+  table.center {
+    margin-left: auto;
+    margin-right: auto; }
+
+td {
+  border: 15px solid white;
+  width: 200px;
+  height: 200px; }
+
+/*# sourceMappingURL=style.css.map */
