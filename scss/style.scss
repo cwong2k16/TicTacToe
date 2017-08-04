@@ -19,3 +19,9 @@ td{
     width: $width; 
     height: $width;
 }
+.invisible2{
+    background: transparent;
+    border: none !important;
+    width: $width;
+    height: $width;
+}

@@ -14,4 +14,10 @@ td {
   width: 200px;
   height: 200px; }
 
+.invisible2 {
+  background: transparent;
+  border: none !important;
+  width: 200px;
+  height: 200px; }
+
 /*# sourceMappingURL=style.css.map */
