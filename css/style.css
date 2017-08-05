@@ -11,13 +11,13 @@ table {
 
 td {
   border: 15px solid white;
-  width: 200px;
-  height: 200px; }
+  width: 150px;
+  height: 150px; }
 
-.invisible2 {
+.myinvisible {
   background: transparent;
   border: none !important;
-  width: 200px;
-  height: 200px; }
+  width: 150px;
+  height: 150px; }
 
 /*# sourceMappingURL=style.css.map */

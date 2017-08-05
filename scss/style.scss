@@ -1,6 +1,6 @@
 $bgc: #ADD8E6; // bg color
 $gc: white; // general color of text and all
-$width: 200px; // the length/width of each cell
+$width: 150px; // the length/width of each cell
 
 body{
   background-color: $bgc;
@@ -19,7 +19,7 @@ td{
     width: $width; 
     height: $width;
 }
-.invisible2{
+.myinvisible{
     background: transparent;
     border: none !important;
     width: $width;
