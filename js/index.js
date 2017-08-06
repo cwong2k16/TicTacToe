@@ -39,7 +39,6 @@ $(document).ready(function(){
     });
     if(!playersTurn){
         placeMarker();
-        checkWin();
     }
     else{
         aiMove();
@@ -96,6 +95,8 @@ function placeMarker(){
                    playerTrack[6]++;
                }
            }
+           
+        checkWin();
        } 
     });
 }
