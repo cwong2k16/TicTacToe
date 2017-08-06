@@ -45,7 +45,7 @@ $(document).ready(function(){
             aiMove();
             checkWin();
         }
-    }, 20);
+    }, 1000);
 });
 
 function placeMarker(){
@@ -66,7 +66,16 @@ function placeMarker(){
 }
 
 function aiMove(){
-//     implement later
+    if(opponentTurn){
+        var index = 0;
+        var curr = playerTrack[index];
+        while(index < playerTrack.length && opponentTurn){
+            if(playerTrack[index] === 2){ // if player has one row/col/diag filled with 2 and has empty spot, 
+                
+            }
+        }
+    }
+//    console.log(curr);
 }
 
 function checkWin(){
