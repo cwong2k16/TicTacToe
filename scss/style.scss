@@ -1,11 +1,13 @@
 $bgc: #ADD8E6; // bg color
 $gc: white; // general color of text and all
 $width: 150px; // the length/width of each cell
+$bc: #32CD32; // buttons are green
 
 body{
   background-color: $bgc;
   color: $gc;
   text-align: center;
+    text-transform: uppercase;
 }
 table{
     border-style:hidden;
@@ -24,4 +26,16 @@ td{
     border: none !important;
     width: $width;
     height: $width;
+}
+
+button{
+    background-color: $bc;
+}
+
+.center{
+    text-align: center;
+}
+
+.ok{
+    background-color: lightblue;
 }

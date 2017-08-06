@@ -1,7 +1,8 @@
 body {
   background-color: #ADD8E6;
   color: white;
-  text-align: center; }
+  text-align: center;
+  text-transform: uppercase; }
 
 table {
   border-style: hidden; }
@@ -19,5 +20,14 @@ td {
   border: none !important;
   width: 150px;
   height: 150px; }
+
+button {
+  background-color: #32CD32; }
+
+.center {
+  text-align: center; }
+
+.ok {
+  background-color: lightblue; }
 
 /*# sourceMappingURL=style.css.map */
