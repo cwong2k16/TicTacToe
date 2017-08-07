@@ -81,15 +81,6 @@ function aiMove(){
             index++;
             curr = playerTrack[index];
         }
-        index = 0;
-        curr = opponentTrack[index];
-        while(index < opponentTrack.length && opponentTurn){
-            if(curr === 2 && playerTrack[index] === 0){
-                block(index, opponentMark);
-            }
-            index++;
-            curr = opponentTrack[index];
-        }
         if(opponentTurn){
             var rand = Math.floor(Math.random()*9);
             while(flags[rand] !== "*"){
