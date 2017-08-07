@@ -72,21 +72,21 @@ function placeMarker(){
 
 function aiMove(){
     if(opponentTurn){
-//        var index = 0;
-//        var curr = opponentTrack[index];
-//        while(index < opponentTrack.length && opponentTurn){
-//            if(curr === 2 && playerTrack[index] === 0){
-//                block(index, opponentMark);
-//            }
-//            index++;
-//            curr = opponentTrack[index];
-//        }
         var index = 0;
-        var curr = playerTrack[index];
+        var curr = opponentTrack[index];
+        while(index < opponentTrack.length && opponentTurn){
+            if(curr === 2 && playerTrack[index] === 0){
+                placeAI(index, opponentMark); 
+            }
+            index++;
+            curr = opponentTrack[index];
+        }
+        index = 0;
+        curr = playerTrack[index];
         while(index < playerTrack.length && opponentTurn){
             if(curr === 2 && opponentTrack[index] === 0){
                 console.log(index);
-                block(index, opponentMark);
+                placeAI(index, opponentMark);
             }
             index++;
             curr = playerTrack[index];
@@ -189,7 +189,7 @@ function updateTrack(index, mark){
     return array;
 }
 
-function block(index, mark){    // index which row, col, or dia that has 2 player's marks and 0 AI mark
+function placeAI(index, mark){    // index which row, col, or dia that has 2 player's marks and 0 AI mark
     if(index === 0 || index === 1 || index === 2){  // the index is either row1, row2, or row3
         for(var i = index*3; i < (index*3)+3; i++){
             if(flags[i] === "*"){
