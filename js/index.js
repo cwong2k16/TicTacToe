@@ -61,7 +61,10 @@ function placeMarker(){
                    playerTrack = updateTrack(index, playerMark);
                    opponentTurn = true; 
                }
-            checkWin();
+               checkWin();
+               if(!gameOver){
+                    isFull();
+               }
            }
        }
     });
@@ -72,12 +75,20 @@ function aiMove(){
         var index = 0;
         var curr = playerTrack[index];
         while(index < playerTrack.length && opponentTurn){
-//            console.log("playerTrack at index: " + index + " is " + curr + " opponent is: " + opponentTrack[index]);
             if(curr === 2 && opponentTrack[index] === 0){
                 block(index, opponentMark);
-            };
+            }
             index++;
             curr = playerTrack[index];
+        }
+        index = 0;
+        curr = opponentTrack[index];
+        while(index < opponentTrack.length && opponentTurn){
+            if(curr === 2 && playerTrack[index] === 0){
+                block(index, opponentMark);
+            }
+            index++;
+            curr = opponentTrack[index];
         }
         if(opponentTurn){
             var rand = Math.floor(Math.random()*9);
@@ -89,6 +100,9 @@ function aiMove(){
             opponentTrack = updateTrack(rand, opponentMark);
             opponentTurn = !opponentTurn;
             checkWin();
+            if(!gameOver){
+                isFull();
+            }
         }
     }
 }
@@ -106,6 +120,18 @@ function checkWin(){
     }
 }
 
+function isFull(){
+    var count = 0;
+    for(var i = 0; i < flags.length; i++){
+        if(flags[i] !== "*"){
+            count++;
+        }
+    }
+    if(count === 9){
+        alert("Tie!");
+        gameOver = !gameOver;
+    }
+}
 
 function updateTrack(index, mark){
     var array;
