@@ -7,6 +7,8 @@ var opponentTurn = false;
 var playerTrack = [0, 0, 0, 0, 0, 0, 0, 0]; // row1, row2, row3, col1, col2, col3, diag1, diag2
 var opponentTrack = [0, 0, 0, 0, 0, 0, 0, 0];
 var gameOver = false;
+var playerScore = 0;
+var opponentScore = 0;
 
 for(var i = 0; i < 9; i++){
     flags[i] = "*";
@@ -52,7 +54,7 @@ $(document).ready(function(){
 
 function placeMarker(){
     $("button").click(function(){
-       if(!opponentTurn){
+       if(!opponentTurn && !gameOver){
            if(buttonIDs.includes(this.id)){
                var index = buttonIDs.indexOf(this.id);
                if(flags[index] === "*"){
@@ -85,7 +87,6 @@ function aiMove(){
         curr = playerTrack[index];
         while(index < playerTrack.length && opponentTurn){
             if(curr === 2 && opponentTrack[index] === 0){
-                console.log(index);
                 placeAI(index, opponentMark);
             }
             index++;
@@ -103,7 +104,6 @@ function aiMove(){
         opponentTurn = !opponentTurn;
     }
     checkWin();
-//    console.log(opponentTrack);
     if(!gameOver){
         isFull();
     }
@@ -113,10 +113,15 @@ function aiMove(){
 function checkWin(){
     for(var i = 0; i < playerTrack.length; i++){
         if(playerTrack[i] === 3){
+            playerScore++;
+            $("#playerScore").html(playerScore);
             gameOver = true;
             alert("You win!");
         }
         if(opponentTrack[i] === 3){
+            opponentScore++;
+            console.log(opponentScore);
+            $("#opponentScore").html(opponentScore);
             gameOver = true;
             alert("Opponent won!");
         }
