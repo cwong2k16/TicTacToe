@@ -72,30 +72,42 @@ function placeMarker(){
 
 function aiMove(){
     if(opponentTurn){
+//        var index = 0;
+//        var curr = opponentTrack[index];
+//        while(index < opponentTrack.length && opponentTurn){
+//            if(curr === 2 && playerTrack[index] === 0){
+//                block(index, opponentMark);
+//            }
+//            index++;
+//            curr = opponentTrack[index];
+//        }
         var index = 0;
         var curr = playerTrack[index];
         while(index < playerTrack.length && opponentTurn){
             if(curr === 2 && opponentTrack[index] === 0){
+                console.log(index);
                 block(index, opponentMark);
             }
             index++;
             curr = playerTrack[index];
         }
-        if(opponentTurn){
-            var rand = Math.floor(Math.random()*9);
-            while(flags[rand] !== "*"){
-                rand = Math.floor(Math.random()*9);
-            }
-            flags[rand] = opponentMark;
-            $("#" + buttonIDs[rand]).append("<h1>" + opponentMark + "</h1>");
-            opponentTrack = updateTrack(rand, opponentMark);
-            opponentTurn = !opponentTurn;
-            checkWin();
-            if(!gameOver){
-                isFull();
-            }
-        }
     }
+    if(opponentTurn){
+        var rand = Math.floor(Math.random()*9);
+        while(flags[rand] !== "*"){
+            rand = Math.floor(Math.random()*9);
+        }
+        flags[rand] = opponentMark;
+        $("#" + buttonIDs[rand]).append("<h1>" + opponentMark + "</h1>");
+        opponentTrack = updateTrack(rand, opponentMark);
+        opponentTurn = !opponentTurn;
+    }
+    checkWin();
+//    console.log(opponentTrack);
+    if(!gameOver){
+        isFull();
+    }
+    
 }
 
 function checkWin(){
@@ -183,7 +195,7 @@ function block(index, mark){    // index which row, col, or dia that has 2 playe
             if(flags[i] === "*"){
                 flags[i] = mark;
                 $("#" + buttonIDs[i]).append("<h1>" + mark + "</h1>");
-                opponentTrack = updateTrack(index, mark);
+                opponentTrack = updateTrack(i, mark);
                 opponentTurn = !opponentTurn; 
             }
         }
@@ -193,7 +205,7 @@ function block(index, mark){    // index which row, col, or dia that has 2 playe
             if(flags[i] === "*"){
                 flags[i] = mark;
                 $("#" + buttonIDs[i]).append("<h1>" + mark + "</h1>");
-                opponentTrack = updateTrack(index, mark);
+                opponentTrack = updateTrack(i, mark);
                 opponentTurn = !opponentTurn; 
             }
         }
@@ -204,7 +216,7 @@ function block(index, mark){    // index which row, col, or dia that has 2 playe
                 if(flags[i] === "*"){
                     flags[i] = mark;
                     $("#" + buttonIDs[i]).append("<h1>" + mark + "</h1>");
-                    opponentTrack = updateTrack(index, mark);
+                    opponentTrack = updateTrack(i, mark);
                     opponentTurn = !opponentTurn; 
                 }
             }
@@ -214,7 +226,7 @@ function block(index, mark){    // index which row, col, or dia that has 2 playe
                 if(flags[i] === "*"){
                     flags[i] = mark;
                     $("#" + buttonIDs[i]).append("<h1>" + mark + "</h1>");
-                    opponentTrack = updateTrack(index, mark);
+                    opponentTrack = updateTrack(i, mark);
                     opponentTurn = !opponentTurn; 
                 }
             }
