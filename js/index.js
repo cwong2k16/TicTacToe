@@ -54,7 +54,7 @@ $(document).ready(function(){
 
 function placeMarker(){
     $("button").click(function(){
-       if(!opponentTurn && !gameOver){
+       if(!opponentTurn){
            if(buttonIDs.includes(this.id)){
                var index = buttonIDs.indexOf(this.id);
                if(flags[index] === "*"){
@@ -117,6 +117,7 @@ function checkWin(){
             $("#playerScore").html(playerScore);
             gameOver = true;
             alert("You win!");
+            clearBoard();
         }
         if(opponentTrack[i] === 3){
             opponentScore++;
@@ -124,6 +125,7 @@ function checkWin(){
             $("#opponentScore").html(opponentScore);
             gameOver = true;
             alert("Opponent won!");
+            clearBoard();
         }
     }
 }
@@ -137,6 +139,7 @@ function isFull(){
     }
     if(count === 9){
         alert("Tie!");
+        clearBoard();
         gameOver = !gameOver;
     }
 }
@@ -236,5 +239,18 @@ function placeAI(index, mark){    // index which row, col, or dia that has 2 pla
                 }
             }
         }
+    }
+}
+
+function clearBoard(){
+    for(var i = 0; i < 9; i++){
+        flags[i] = "*";
+    }
+    playerTrack = [0, 0, 0, 0, 0, 0, 0, 0]; // row1, row2, row3, col1, col2, col3, diag1, diag2
+    opponentTrack = [0, 0, 0, 0, 0, 0, 0, 0];
+    gameOver = false;
+    opponentTurn = false;
+    for(var i = 0; i < buttonIDs.length; i++){
+        $("#" + buttonIDs[i]).html("");
     }
 }
