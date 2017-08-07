@@ -6,7 +6,6 @@ var opponentMark = "o";
 var opponentTurn = false;
 var playerTrack = [0, 0, 0, 0, 0, 0, 0, 0]; // row1, row2, row3, col1, col2, col3, diag1, diag2
 var opponentTrack = [0, 0, 0, 0, 0, 0, 0, 0];
-var gameboardTrack = [[], [], [], [], [], [], [], []];
 var gameOver = false;
 
 for(var i = 0; i < 9; i++){
@@ -39,7 +38,7 @@ $(document).ready(function(){
        $("#x").css({'background-color': '#32CD32'});
        $("#o").css({'background-color': 'yellow'});
     });
-    gameLoop = setInterval(function(){
+    gameLoop = setInterval(function(){ 
         if(!gameOver){
             if(!opponentTurn){
                 placeMarker();
@@ -70,15 +69,27 @@ function placeMarker(){
 
 function aiMove(){
     if(opponentTurn){
-        var rand = Math.floor(Math.random()*9);
-        while(flags[rand] !== "*"){
-            rand = Math.floor(Math.random()*9);
+        var index = 0;
+        var curr = playerTrack[index];
+        while(index < playerTrack.length && opponentTurn){
+//            console.log("playerTrack at index: " + index + " is " + curr + " opponent is: " + opponentTrack[index]);
+            if(curr === 2 && opponentTrack[index] === 0){
+                block(index, opponentMark);
+            };
+            index++;
+            curr = playerTrack[index];
         }
-        flags[rand] = opponentMark;
-        $("#" + buttonIDs[rand]).append("<h1>" + opponentMark + "</h1>");
-        opponentTrack = updateTrack(rand, opponentMark);
-        opponentTurn = !opponentTurn;
-        checkWin();
+        if(opponentTurn){
+            var rand = Math.floor(Math.random()*9);
+            while(flags[rand] !== "*"){
+                rand = Math.floor(Math.random()*9);
+            }
+            flags[rand] = opponentMark;
+            $("#" + buttonIDs[rand]).append("<h1>" + opponentMark + "</h1>");
+            opponentTrack = updateTrack(rand, opponentMark);
+            opponentTurn = !opponentTurn;
+            checkWin();
+        }
     }
 }
 
@@ -108,67 +119,88 @@ function updateTrack(index, mark){
        array[0]++;
        array[3]++;
        array[6]++;
-       gameboardTrack[0].push(mark);
-       gameboardTrack[3].push(mark);
-       gameboardTrack[6].push(mark);
     }
     if(index === 1){
         array[0]++;
         array[4]++;
-        gameboardTrack[0].push(mark);
-        gameboardTrack[4].push(mark);
     }
     if(index === 2){
         array[0]++;
         array[5]++;
         array[7]++;
-        gameboardTrack[0].push(mark);
-        gameboardTrack[5].push(mark);
-        gameboardTrack[7].push(mark);
     }
     if(index === 3){
         array[1]++;
         array[3]++;
-        gameboardTrack[1].push(mark);
-        gameboardTrack[3].push(mark);
     }
     if(index === 4){
         array[1]++;
         array[4]++;
         array[6]++;
         array[7]++;
-        gameboardTrack[1].push(mark);
-        gameboardTrack[4].push(mark);
-        gameboardTrack[6].push(mark);
-        gameboardTrack[7].push(mark);
     }
     if(index === 5){
         array[1]++;
         array[5]++;
-        gameboardTrack[1].push(mark);
-        gameboardTrack[5].push(mark);
     }
     if(index === 6){
         array[2]++;
         array[3]++;
         array[7]++;
-        gameboardTrack[2].push(mark);
-        gameboardTrack[3].push(mark);
-        gameboardTrack[7].push(mark);
     }
     if(index === 7){
         array[2]++;
         array[4]++;
-        gameboardTrack[2].push(mark);
-        gameboardTrack[4].push(mark);
     }
     if(index === 8){
         array[2]++;
         array[5]++;
         array[6]++;
-        gameboardTrack[2].push(mark);
-        gameboardTrack[5].push(mark);
-        gameboardTrack[6].push(mark);
     }
     return array;
+}
+
+function block(index, mark){    // index which row, col, or dia that has 2 player's marks and 0 AI mark
+    if(index === 0 || index === 1 || index === 2){  // the index is either row1, row2, or row3
+        for(var i = index*3; i < (index*3)+3; i++){
+            if(flags[i] === "*"){
+                flags[i] = mark;
+                $("#" + buttonIDs[i]).append("<h1>" + mark + "</h1>");
+                opponentTrack = updateTrack(index, mark);
+                opponentTurn = !opponentTurn; 
+            }
+        }
+    }
+    else if(index === 3 || index === 4 || index === 5){
+        for(var i = index - 3; i <= index+3; i+=3){
+            if(flags[i] === "*"){
+                flags[i] = mark;
+                $("#" + buttonIDs[i]).append("<h1>" + mark + "</h1>");
+                opponentTrack = updateTrack(index, mark);
+                opponentTurn = !opponentTurn; 
+            }
+        }
+    }
+    else{   // index has to be either 6 or 7 now
+        if(index === 6){
+            for(var i = 0; i <= 8; i+=4){
+                if(flags[i] === "*"){
+                    flags[i] = mark;
+                    $("#" + buttonIDs[i]).append("<h1>" + mark + "</h1>");
+                    opponentTrack = updateTrack(index, mark);
+                    opponentTurn = !opponentTurn; 
+                }
+            }
+        }
+        else{
+            for(var i = 2; i <= 6; i+=2){
+                if(flags[i] === "*"){
+                    flags[i] = mark;
+                    $("#" + buttonIDs[i]).append("<h1>" + mark + "</h1>");
+                    opponentTrack = updateTrack(index, mark);
+                    opponentTurn = !opponentTurn; 
+                }
+            }
+        }
+    }
 }
