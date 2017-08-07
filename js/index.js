@@ -9,6 +9,7 @@ var opponentTrack = [0, 0, 0, 0, 0, 0, 0, 0];
 var gameOver = false;
 var playerScore = 0;
 var opponentScore = 0;
+var gameLoop;
 
 for(var i = 0; i < 9; i++){
     flags[i] = "*";
@@ -40,7 +41,7 @@ $(document).ready(function(){
        $("#x").css({'background-color': '#32CD32'});
        $("#o").css({'background-color': 'yellow'});
     });
-    gameLoop = setInterval(function(){ 
+    gameLoop = setInterval(function(){
         if(!gameOver){
             if(!opponentTurn){
                 placeMarker();
@@ -54,6 +55,7 @@ $(document).ready(function(){
 
 function placeMarker(){
     $("button").click(function(){
+        console.log(this.id);
        if(!opponentTurn){
            if(buttonIDs.includes(this.id)){
                var index = buttonIDs.indexOf(this.id);
@@ -63,7 +65,6 @@ function placeMarker(){
                    playerTrack = updateTrack(index, playerMark);
                    opponentTurn = true; 
                }
-               checkWin();
                if(!gameOver){
                     isFull();
                }
@@ -104,10 +105,10 @@ function aiMove(){
         opponentTurn = !opponentTurn;
     }
     checkWin();
-    if(!gameOver){
+    if(gameOver){
         isFull();
     }
-    
+
 }
 
 function checkWin(){
@@ -116,16 +117,15 @@ function checkWin(){
             playerScore++;
             $("#playerScore").html(playerScore);
             gameOver = true;
-            alert("You win!");
             clearBoard();
+            alert("You win!");
         }
         if(opponentTrack[i] === 3){
             opponentScore++;
-            console.log(opponentScore);
             $("#opponentScore").html(opponentScore);
             gameOver = true;
-            alert("Opponent won!");
             clearBoard();
+            alert("Opponent won!");
         }
     }
 }
@@ -139,8 +139,8 @@ function isFull(){
     }
     if(count === 9){
         alert("Tie!");
-        clearBoard();
         gameOver = !gameOver;
+        clearBoard();
     }
 }
 
@@ -253,4 +253,5 @@ function clearBoard(){
     for(var i = 0; i < buttonIDs.length; i++){
         $("#" + buttonIDs[i]).html("");
     }
+    console.log(flags);
 }
