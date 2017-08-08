@@ -10,6 +10,7 @@ var gameOver = false;
 var playerScore = 0;
 var opponentScore = 0;
 var gameLoop;
+var coolDown = 0;
 
 for(var i = 0; i < 9; i++){
     flags[i] = "*";
@@ -55,7 +56,6 @@ $(document).ready(function(){
 
 function placeMarker(){
     $("button").click(function(){
-        console.log(this.id);
        if(!opponentTurn){
            if(buttonIDs.includes(this.id)){
                var index = buttonIDs.indexOf(this.id);
@@ -105,7 +105,7 @@ function aiMove(){
         opponentTurn = !opponentTurn;
     }
     checkWin();
-    if(gameOver){
+    if(!gameOver){
         isFull();
     }
 
@@ -124,8 +124,8 @@ function checkWin(){
             opponentScore++;
             $("#opponentScore").html(opponentScore);
             gameOver = true;
-            clearBoard();
             alert("Opponent won!");
+            clearBoard();
         }
     }
 }
@@ -249,9 +249,8 @@ function clearBoard(){
     playerTrack = [0, 0, 0, 0, 0, 0, 0, 0]; // row1, row2, row3, col1, col2, col3, diag1, diag2
     opponentTrack = [0, 0, 0, 0, 0, 0, 0, 0];
     gameOver = false;
-    opponentTurn = false;
+    opponentTurn = true;
     for(var i = 0; i < buttonIDs.length; i++){
         $("#" + buttonIDs[i]).html("");
     }
-    console.log(flags);
 }
