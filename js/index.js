@@ -117,7 +117,7 @@ function checkWin(){
             playerScore++;
             $("#playerScore").html(playerScore);
             gameOver = true;
-            clearBoard();
+            clearBoard(false);
             alert("You win!");
         }
         if(opponentTrack[i] === 3){
@@ -125,7 +125,7 @@ function checkWin(){
             $("#opponentScore").html(opponentScore);
             gameOver = true;
             alert("Opponent won!");
-            clearBoard();
+            clearBoard(true);
         }
     }
 }
@@ -140,7 +140,7 @@ function isFull(){
     if(count === 9){
         alert("Tie!");
         gameOver = !gameOver;
-        clearBoard();
+        clearBoard(true);
     }
 }
 
@@ -242,14 +242,14 @@ function placeAI(index, mark){    // index which row, col, or dia that has 2 pla
     }
 }
 
-function clearBoard(){
+function clearBoard(bool){
     for(var i = 0; i < 9; i++){
         flags[i] = "*";
     }
     playerTrack = [0, 0, 0, 0, 0, 0, 0, 0]; // row1, row2, row3, col1, col2, col3, diag1, diag2
     opponentTrack = [0, 0, 0, 0, 0, 0, 0, 0];
     gameOver = false;
-    opponentTurn = true;
+    opponentTurn = bool;
     for(var i = 0; i < buttonIDs.length; i++){
         $("#" + buttonIDs[i]).html("");
     }
